@@ -1,0 +1,6 @@
+{
+  "include": ["**/*.cs", "**/*.ts"],
+  "exclude": ["node_modules", "bin", "obj"],
+  "maxFileSizeKB": 300,
+  "scanDepth": "deep"
+}
