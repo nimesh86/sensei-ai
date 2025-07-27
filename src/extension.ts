@@ -51,12 +51,25 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const sidebarProvider = new SenseiAISidebarProvider(context.extensionUri);
 	context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider('senseiAIView', sidebarProvider)
+		vscode.window.registerWebviewViewProvider(
+		SenseiAISidebarProvider.viewType,
+		sidebarProvider
+		)
 	);
 
+	// Expose for command or result update later
+	context.subscriptions.push(
+		vscode.commands.registerCommand('sensei-ai-extension.showResults', () => {
+		sidebarProvider.updateResults([
+			'No issues found',
+			'1 performance improvement',
+			'2 security concerns'
+		]);
+		})
+	);
 
 	// Command: Set Project Root
-	const setProjectRoot = vscode.commands.registerCommand('sensei-ai.setProjectRoot', async () => {
+	const setProjectRoot = vscode.commands.registerCommand('sensei-ai-extension.setProjectRoot', async () => {
 		const folder = await vscode.window.showOpenDialog({
 			canSelectFolders: true,
 			canSelectMany: false,
@@ -71,7 +84,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	// Command: Scan Project
-	let scanProject = vscode.commands.registerCommand('sensei-ai.scanProject', async () => {
+	let scanProject = vscode.commands.registerCommand('sensei-ai-extension.scanProject', async () => {
 		const config = readConfig();
 		const rootPath = config.projectRoot;
 

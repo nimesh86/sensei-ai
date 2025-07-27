@@ -1,17 +1,21 @@
 {
-  "name": "sensei-ai",
+  "name": "sensei-ai-extension",
   "displayName": "sensei-ai",
   "description": "Your AI coding mentor that reviews, analyzes, and optimizes your code",
-  "version": "0.0.1",
+  "version": "1.0.2",
   "publisher": "nimesh86",
   "license": "MIT",
   "engines": {
-    "vscode": "^1.102.0"
+    "vscode": "^1.100.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onView:senseiAIView",
+    "onCommand:sensei-ai-extension.setProjectRoot",
+    "onCommand:sensei-ai-extension.scanProject"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "viewsContainers": {
@@ -26,19 +30,21 @@
     "views": {
       "senseiAI": [
         {
+          "type": "webview",
           "id": "senseiAIView",
-          "name": "Analysis Results"
+          "name": "Analysis Results",
+          "icon": "media/icon.svg"
         }
       ]
     },
     "commands": [
       {
-        "command": "sensei-ai.helloWorld",
-        "title": "Hello World"
+        "command": "sensei-ai-extension.setProjectRoot",
+        "title": "SenseiAI: Set Project Root"
       },
       {
-        "command": "sensei-ai.setProjectRoot",
-        "title": "SenseiAI: Set Project Root"
+        "command": "sensei-ai-extension.scanProject",
+        "title": "SenseiAI: Scan Project"
       }
 
     ]
@@ -58,7 +64,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.102.0",
+    "@types/vscode": "^1.100.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
@@ -72,7 +78,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nimesh86/sensei-ai"
+    "url": "https://github.com/nimesh86/sensei-ai-extension"
   }
 
 }
